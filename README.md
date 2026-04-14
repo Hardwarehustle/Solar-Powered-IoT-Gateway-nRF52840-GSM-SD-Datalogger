@@ -21,11 +21,17 @@ The board is designed for **remote outdoor IoT deployments** such as environment
 
 ## 🖼️ Project Visuals
 
-### Top Side (Main Electronics)
-![Top View](images/TopView.jpg)
+### Schematic
+![Schematic](Images/SCH.png)
 
-### Bottom Side (Battery Holder)
-![Bottom View](images/BottomView.jpg)
+### PCB Layout
+![PCB Layout](Images/PCB_Layout.png)
+
+### 3D Board Top View
+![3D Top View](Images/TopView.png)
+
+### 3D Board Bottom View
+![3D Bottom View](Images/BottomView.png)
 
 ---
 
