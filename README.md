@@ -114,7 +114,7 @@ nRF52840 SoC:
 
 ---
 
-## ⚡ Power Architecture
+##  Power Architecture
 
 ```
 Solar Panel (5V–18V) ──► CN3791 MPPT ──► LiPo / 2×AA Battery (BATT+)
