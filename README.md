@@ -1,25 +1,25 @@
-# ☀️ Solar-Powered IoT Gateway — nRF52840 + GSM + SD Datalogger
+# Solar-Powered IoT Gateway — nRF52840 + GSM + SD Datalogger
 ---
 
-## 📌 Project Overview
+## Project Overview
 
 This is a **solar-powered, battery-backed IoT Gateway PCB** built around the **Nordic nRF52840** SoC (Bluetooth 5 + USB + 64 MHz Cortex-M4F). It integrates a complete off-grid power system with MPPT solar charging, 2× AA battery holders, GSM connectivity via SIM800L, timestamped microSD data logging via DS3231 RTC, EEPROM configuration storage, and a u.FL antenna connector — all on a compact square board with 4 mounting holes.
 
 The board is designed for **remote outdoor IoT deployments** such as environmental monitoring, asset tracking, agricultural sensors, and smart metering — where grid power is unavailable and cellular connectivity is the only uplink.
 
 **Key capabilities:**
-- 🔋 **Solar MPPT charging** of LiPo/Li-ion battery via CN3791
-- 📡 **BLE 5.0 / NFC / USB** via nRF52840
-- 📱 **GSM 2G connectivity** via SIM800L (SMS, GPRS)
-- 💾 **MicroSD card** data logging (SPI, level-shifted via 74LVC125A)
-- ⏰ **DS3231 RTC** with AT24C32 EEPROM for timestamped logging
-- 🔌 **SWD JTAG** debug/programming header
-- 🔘 **FACTORY + RESET** tactile buttons
-- 🟢🔴 **Power + Status LEDs**
+-  **Solar MPPT charging** of LiPo/Li-ion battery via CN3791
+-  **BLE 5.0 / NFC / USB** via nRF52840
+-  **GSM 2G connectivity** via SIM800L (SMS, GPRS)
+-  **MicroSD card** data logging (SPI, level-shifted via 74LVC125A)
+-  **DS3231 RTC** with AT24C32 EEPROM for timestamped logging
+-  **SWD JTAG** debug/programming header
+-  **FACTORY + RESET** tactile buttons
+-  **Power + Status LEDs**
 
 ---
 
-## 🖼️ Project Visuals
+##  Project Visuals
 
 ### Schematic
 ![Schematic](Images/SCH.png)
@@ -35,7 +35,7 @@ The board is designed for **remote outdoor IoT deployments** such as environment
 
 ---
 
-## 🏗️ System Architecture
+## System Architecture
 
 ```
 Solar Panel Input (S2B-PH Connector)
@@ -70,7 +70,7 @@ nRF52840 SoC:
 
 ---
 
-## 📊 Component BOM
+## Component BOM
 
 ### Core ICs
 
@@ -139,7 +139,7 @@ Solar Panel (5V–18V) ──► CN3791 MPPT ──► LiPo / 2×AA Battery (BAT
 
 ---
 
-## ☀️ Solar Charge Controller — CN3791
+## Solar Charge Controller — CN3791
 
 The **CN3791** is a standalone MPPT Li-ion/LiPo battery charger for photovoltaic input. [web:97] Key features:
 - **Input:** 5V–18V solar panel via SOLAR JST connector
@@ -151,7 +151,7 @@ The **CN3791** is a standalone MPPT Li-ion/LiPo battery charger for photovoltaic
 
 ---
 
-## 📡 nRF52840 — Main SoC
+## nRF52840 — Main SoC
 
 | Feature | Detail |
 |:---|:---|
@@ -167,19 +167,19 @@ The **CN3791** is a standalone MPPT Li-ion/LiPo battery charger for photovoltaic
 
 ---
 
-## ⏰ DS3231MZ+ RTC + AT24C32 EEPROM
+## DS3231MZ+ RTC + AT24C32 EEPROM
 
 The **DS3231MZ+** provides ±2ppm accuracy timekeeping over I2C (SDA/SCL), with a built-in temperature sensor and battery backup via D3 (1N4148WS) for operation during power loss. [web:101] The **AT24C32D** EEPROM (32Kbit, I2C) shares the same I2C bus for storing gateway configuration, calibration data, and device identity persistently.
 
 ---
 
-## 💾 MicroSD Card — Level-Shifted SPI
+## MicroSD Card — Level-Shifted SPI
 
 The SD card operates at 3.3V and communicates via SPI (SD_MOSI, SD_MISO, SD_SCK, SD_CS). The **74LVC125A quad bus buffer** handles level shifting between the nRF52840 (3.3V logic) and the SD card. [file:93] An **SRV05-4 TVS diode array (D4)** protects all 4 SPI lines against ESD transients. The SD card power rail (`SD_V`) is switched by two parallel **FS3401 P-MOSFETs (Q3, Q4)** for power gating — the SD card can be completely powered off during sleep for ultra-low power operation.
 
 ---
 
-## 📱 SIM800L GSM Module
+## SIM800L GSM Module
 
 The **SIM800L** connects via UART (TX/RX) to the nRF52840 on SIM1 header. [file:93] It is powered directly from BATT+ through a **SI2302 N-MOSFET (Q2)** controlled by `SIMEN` GPIO, allowing the MCU to power-gate the GSM module for battery saving. Capabilities include:
 - Quad-band 2G GSM/GPRS (850/900/1800/1900 MHz)
@@ -189,7 +189,7 @@ The **SIM800L** connects via UART (TX/RX) to the nRF52840 on SIM1 header. [file:
 
 ---
 
-## 🔘 User Interface
+## User Interface
 
 | Component | Location | Function |
 |:---:|:---:|:---|
@@ -201,7 +201,7 @@ The **SIM800L** connects via UART (TX/RX) to the nRF52840 on SIM1 header. [file:
 
 ---
 
-## 🧪 Bring-Up & Testing
+## Bring-Up & Testing
 
 ### Step 1 — Power Rail Check
 - Connect solar panel or apply 4V to BATT+ directly
@@ -235,7 +235,7 @@ The **SIM800L** connects via UART (TX/RX) to the nRF52840 on SIM1 header. [file:
 
 ---
 
-## 🖥️ Firmware Stack
+## Firmware Stack
 
 ```
 nRF5 SDK / Zephyr RTOS (nRF52840 target)
@@ -250,7 +250,7 @@ nRF5 SDK / Zephyr RTOS (nRF52840 target)
 
 ---
 
-## ⚠️ Design Notes & Cautions
+## Design Notes & Cautions
 
 - **nRF52840 RF decoupling** — DEC1–DEC6 capacitor network must be placed within 0.5mm of IC pads per Nordic layout guidelines
 - **32 MHz crystal (X2)** load caps (12pF C1/C2) must be placed as close as possible to XC1/XC2 pads
@@ -262,18 +262,18 @@ nRF5 SDK / Zephyr RTOS (nRF52840 target)
 
 ---
 
-## 📄 License
+## License
 
 This project is open for educational and personal use.  
 © 2024 Janardhan BV — All rights reserved.
 
 ---
 
-## 🙋 Author
+## Author
 
 **Janardhan BV**  
 Embedded Hardware Engineer | PCB Design | Power Electronics  
-📍 Bengaluru, India
+Bengaluru, India
 
 ---
 *Solar IoT Gateway — nRF52840 + CN3791 MPPT + SIM800L + DS3231 + MicroSD*
